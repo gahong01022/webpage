@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAHOME - AI Training</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;900&display=swap');
+        
+        body {
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Noto Serif TC', serif;
+        }
+        .container {
+            display: flex;
+            width: 100%;
+        }
+        .left-section {
+            flex: 2;
+            background: #f7f3f0;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            position: relative;
+            overflow-y: auto;
+        }
+        .header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 2px solid #223f3f;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #223f3f;
+            margin: 10px 0 0;
+            font-size: 48px;
+            font-weight: 900;
+        }
+        .header p {
+            color: #8b4a32;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        .content {
+            padding: 0 40px;
+            color: #333;
+        }
+        .content h2 {
+            color: #223f3f;
+            border-left: 5px solid #8b4a32;
+            padding-left: 15px;
+            margin-top: 30px;
+        }
+        .training-item {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .training-item h3 {
+            color: #223f3f;
+            margin-top: 0;
+        }
+        .training-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #8b4a32;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .right-section {
+            flex: 1;
+            background: #1e3a3a;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .right-section ul {
+            list-style: none;
+            padding: 0;
+            width: 100%;
+            text-align: center;
+        }
+        .right-section li {
+            padding: 20px 0;
+            border-bottom: 1px solid #3a5656;
+            cursor: pointer;
+            font-size: 22px;
+        }
+        .right-section li:hover {
+            background: #2e5151;
+        }
+        .right-section li.active {
+            background: #2e5151;
+            font-weight: bold;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .home-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: #223f3f;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Noto Serif TC', serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-section">
+            <button class="home-button" onclick="window.location.href='main-page.html'">返回主頁</button>
+            <div class="header">
+                <h1>AI Training</h1>
+                <p>人工智能訓練資源與筆記</p>
+            </div>
+            <div class="content">
+                <h2>最新訓練資源</h2>
+                
+                <div class="training-item">
+                    <div class="training-meta">
+                        <span>發布日期: 2025-03-15</span>
+                        <span>分類: 深度學習</span>
+                    </div>
+                    <h3>神經網絡架構與優化技巧</h3>
+                    <p>本文探討了當前神經網絡架構的最新發展，包括Transformer的變體以及它們在不同領域的應用。我們還將分享一些優化技巧，幫助你提高模型訓練效率和性能。</p>
+                    <p>關鍵詞: 神經網絡, Transformer, 優化技巧, 效率提升</p>
+                </div>
+                
+                <div class="training-item">
+                    <div class="training-meta">
+                        <span>發布日期: 2025-03-10</span>
+                        <span>分類: 大語言模型</span>
+                    </div>
+                    <h3>微調大語言模型：從理論到實踐</h3>
+                    <p>大語言模型的微調是一項重要技術，本文將從理論基礎開始，詳細講解各種微調方法，包括LoRA、QLoRA等低參數微調技術，並提供實用的代碼示例。</p>
+                    <p>關鍵詞: LLM, 微調, LoRA, 參數高效微調</p>
+                </div>
+                
+                <div class="training-item">
+                    <div class="training-meta">
+                        <span>發布日期: 2025-03-05</span>
+                        <span>分類: 計算機視覺</span>
+                    </div>
+                    <h3>視覺-語言模型：多模態AI的實現方法</h3>
+                    <p>本文探討了視覺-語言模型的架構和訓練方法，解析了CLIP、Flamingo等模型的工作原理，並分享了在實際應用中的部署經驗。</p>
+                    <p>關鍵詞: 多模態, CLIP, 視覺-語言模型, 圖像理解</p>
+                </div>
+                
+                <h2>訓練資源庫</h2>
+                <div class="training-item">
+                    <h3>模型訓練指南</h3>
+                    <ul>
+                        <li>基礎模型訓練流程</li>
+                        <li>分布式訓練設置</li>
+                        <li>數據預處理最佳實踐</li>
+                        <li>模型評估與基準測試</li>
+                    </ul>
+                </div>
+                
+                <div class="training-item">
+                    <h3>開源工具集</h3>
+                    <ul>
+                        <li>模型訓練框架比較</li>
+                        <li>數據標註工具</li>
+                        <li>模型可視化工具</li>
+                        <li>推理加速方案</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="right-section">
+            <ul>
+                <li><a href="index.html">Profile</a></li>
+                <li><a href="iot.html">IoT</a></li>
+                <li class="active"><a href="ai-training.html">AI training</a></li>
+                <li><a href="music-room.html">Music Room</a></li>
+                <li><a href="vb-log.html">V&B log</a></li>
+                <li>Coming soon...</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

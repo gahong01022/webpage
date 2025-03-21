@@ -1,0 +1,12 @@
+{
+  "name": "my_node_website",
+  "version": "1.0.0",
+  "description": "A simple Node.js website",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {},
+  "author": "",
+  "license": "ISC"
+}

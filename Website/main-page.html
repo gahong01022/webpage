@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAHOME - My Site</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;900&display=swap');
+        
+        body {
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Noto Serif TC', serif;
+        }
+        .container {
+            display: flex;
+            width: 100%;
+        }
+        .left-section {
+            flex: 2;
+            background: #f7f3f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+        .logo {
+            text-align: center;
+            z-index: 1;
+            position: relative;
+        }
+        .logo h1 {
+            color: #223f3f;
+            margin: 10px 0 0;
+            font-size: 48px;
+            font-weight: 900;
+        }
+        .logo p {
+            color: #8b4a32;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        .walking-shadow {
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            width: 150px;
+            height: 100px;
+            background: url('walking-shadow.png') no-repeat center;
+            background-size: contain;
+            transform: translateX(-50%);
+            opacity: 0.7;
+        }
+        .image-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 80%;
+            position: absolute;
+        }
+        .jedi-box {
+            position: absolute;
+            top: 5%;
+            width: 80%;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            background: url('jedi-evolution.png') no-repeat center;
+            background-size: contain;
+        }
+        .mando-box {
+            position: absolute;
+            bottom: 5%;
+            width: 80%;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            background: url('mandalorian-pulp-fiction.png') no-repeat center;
+            background-size: contain;
+        }
+        .right-section {
+            flex: 1;
+            background: #1e3a3a;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .right-section ul {
+            list-style: none;
+            padding: 0;
+            width: 100%;
+            text-align: center;
+        }
+        .right-section li {
+            padding: 20px 0;
+            border-bottom: 1px solid #3a5656;
+            cursor: pointer;
+            font-size: 22px;
+        }
+        .right-section li:hover {
+            background: #2e5151;
+        }
+        .right-section li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        .artistic-symbol {
+            width: 120px;
+            height: 60px;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-section">
+            <div class="walking-shadow"></div>
+            <div class="image-section">
+                <div class="jedi-box"></div>
+            </div>
+            <div class="logo">
+                <!-- 文艺气息的图形SVG -->
+                <svg class="artistic-symbol" viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg">
+                    <!-- 书本 -->
+                    <rect x="20" y="15" width="40" height="35" fill="#8b4a32" />
+                    <rect x="23" y="18" width="34" height="29" fill="#f7f3f0" />
+                    <path d="M40 18 L40 47" stroke="#8b4a32" stroke-width="1" />
+                    
+                    <!-- 钢笔 -->
+                    <path d="M65 15 L90 40" stroke="#223f3f" stroke-width="2" />
+                    <polygon points="90,40 85,45 95,45" fill="#223f3f" />
+                    
+                    <!-- 音符 -->
+                    <circle cx="80" cy="20" r="5" fill="#8b4a32" />
+                    <path d="M85 20 L85 5" stroke="#8b4a32" stroke-width="2" />
+                    
+                    <!-- 画笔 -->
+                    <rect x="50" y="30" width="5" height="20" fill="#223f3f" />
+                    <path d="M50 30 C50 25, 55 25, 55 30" fill="#223f3f" />
+                    
+                    <!-- 装饰线条 -->
+                    <path d="M15 50 C30 40, 60 60, 90 45" stroke="#8b4a32" stroke-width="1" fill="none" />
+                </svg>
+                <h1>GAHOME</h1>
+                <p>MY SITE</p>
+            </div>
+            <div class="image-section">
+                <div class="mando-box"></div>
+            </div>
+        </div>
+        <div class="right-section">
+            <ul>
+                <li><a href="profile-page.html">Profile</a></li>
+                <li><a href="iot-page.html">IoT</a></li>
+                <li><a href="ai-training-page.html">AI training</a></li>
+                <li><a href="music-room-page.html">Music Room</a></li>
+                <li><a href="vb-log-page.html">V&B log</a></li>
+                <li><a href="coming-soon.html">Coming soon...</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

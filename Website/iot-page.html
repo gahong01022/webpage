@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAHOME - IoT</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;900&display=swap');
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Serif TC', serif;
+            background: #f7f3f0;
+            color: #223f3f;
+        }
+        
+        .header {
+            background: #223f3f;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 3px solid #8b4a32;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 36px;
+            font-weight: 900;
+            color: #f7f3f0;
+        }
+        
+        .header p {
+            margin: 5px 0 0;
+            font-size: 18px;
+            color: #f7f3f0;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        
+        .intro-section {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .intro-section h2 {
+            color: #223f3f;
+            margin-top: 0;
+            font-size: 28px;
+            border-bottom: 2px solid #8b4a32;
+            padding-bottom: 10px;
+        }
+        
+        .intro-section p {
+            line-height: 1.6;
+        }
+        
+        .projects-section {
+            margin-bottom: 40px;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .project-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .project-image {
+            height: 200px;
+            background: #ddd;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .project-info {
+            padding: 20px;
+        }
+        
+        .project-info h3 {
+            color: #223f3f;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        
+        .project-info p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .tech-tag {
+            background: #f0f0f0;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            color: #333;
+        }
+        
+        .dashboard-section {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .dashboard-section h2 {
+            color: #223f3f;
+            margin-top: 0;
+            font-size: 28px;
+            border-bottom: 2px solid #8b4a32;
+            padding-bottom: 10px;
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .dashboard-card {
+            background: #f7f3f0;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .dashboard-icon {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        
+        .dashboard-value {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .dashboard-label {
+            color: #666;
+        }
+        
+        .home-button {
+            display: block;
+            width: 200px;
+            margin: 40px auto;
+            padding: 15px 0;
+            background: #223f3f;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        
+        .home-button:hover {
+            background: #2e5151;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>GAHOME</h1>
+        <p>IoT</p>
+    </div>
+    
+    <div class="container">
+        <div class="intro-section">
+            <h2>物联网项目</h2>
+            <p>欢迎来到我的物联网项目展示页面。这里展示了我在IoT领域的探索和创新，包括智能家居、环境监测、自动化系统等多个方面。通过这些项目，我希望能够展示物联网技术如何改变我们的生活和工作方式。</p>
+        </div>
+        
+        <div class="projects-section">
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('/api/placeholder/300/200')"></div>
+                    <div class="project-info">
+                        <h3>智能家居控制系统</h3>
+                        <p>基于Arduino和Raspberry Pi的智能家居控制系统，可以通过手机APP或语音控制家中的灯光、温度、窗帘等设备。</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Arduino</span>
+                            <span class="tech-tag">Raspberry Pi</span>
+                            <span class="tech-tag">MQTT</span>
+                            <span class="tech-tag">Node.js</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('/api/placeholder/300/200')"></div>
+                    <div class="project-info">
+                        <h3>环境监测站</h3>
+                        <p>室内外环境监测系统，可以实时监测温度、湿度、PM2.5、CO2浓度等数据，并通过云平台展示和分析。</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">ESP32</span>
+                            <span class="tech-tag">LoRaWAN</span>
+                            <span class="tech-tag">ThingSpeak</span>
+                            <span class="tech-tag">Python</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('/api/placeholder/300/200')"></div>
+                    <div class="project-info">
+                        <h3>智能植物养护系统</h3>
+                        <p>自动化植物养护系统，可以根据植物的生长情况和环境条件自动控制浇水、施肥和光照。</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Arduino</span>
+                            <span class="tech-tag">土壤传感器</span>
+                            <span class="tech-tag">电磁阀</span>
+                            <span class="tech-tag">LED灯</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="dashboard-section">
+            <h2>实时数据监测</h2>
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <div class="dashboard-icon">🌡️</div>
+                    <div class="dashboard-value">23.5°C</div>
+                    <div class="dashboard-label">室内温度</div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <div class="dashboard-icon">💧</div>
+                    <div class="dashboard-value">65%</div>
+                    <div class="dashboard-label">室内湿度</div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <div class="dashboard-icon">☁️</div>
+                    <div class="dashboard-value">15 μg/m³</div>
+                    <div class="dashboard-label">PM2.5</div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <div class="dashboard-icon">🌱</div>
+                    <div class="dashboard-value">35%</div>
+                    <div class="dashboard-label">土壤湿度</div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <div class="dashboard-icon">💡</div>
+                    <div class="dashboard-value">450 lux</div>
+                    <div class="dashboard-label">光照强度</div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <div class="dashboard-icon">🔋</div>
+                    <div class="dashboard-value">3.2 kWh</div>
+                    <div class="dashboard-label">今日耗电量</div>
+                </div>
+            </div>
+        </div>
+        
+        <a href="main-page.html" class="home-button">返回主页</a>
+    </div>
+</body>
+</html>

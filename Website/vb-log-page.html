@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAHOME - V&B Log</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;900&display=swap');
+        
+        body {
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Noto Serif TC', serif;
+        }
+        .container {
+            display: flex;
+            width: 100%;
+        }
+        .left-section {
+            flex: 2;
+            background: #f7f3f0;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            position: relative;
+            overflow-y: auto;
+        }
+        .header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 2px solid #223f3f;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #223f3f;
+            margin: 10px 0 0;
+            font-size: 48px;
+            font-weight: 900;
+        }
+        .header p {
+            color: #8b4a32;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        .content {
+            padding: 0 40px;
+            color: #333;
+        }
+        .content h2 {
+            color: #223f3f;
+            border-left: 5px solid #8b4a32;
+            padding-left: 15px;
+            margin-top: 30px;
+        }
+        .log-item {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .log-item h3 {
+            color: #223f3f;
+            margin-top: 0;
+        }
+        .log-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #8b4a32;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .log-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .gallery-item {
+            width: 150px;
+            height: 150px;
+            background-color: #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+        }
+        .tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .tag {
+            background: #e8e0d9;
+            color: #8b4a32;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+        .right-section {
+            flex: 1;
+            background: #1e3a3a;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .right-section ul {
+            list-style: none;
+            padding: 0;
+            width: 100%;
+            text-align: center;
+        }
+        .right-section li {
+            padding: 20px 0;
+            border-bottom: 1px solid #3a5656;
+            cursor: pointer;
+            font-size: 22px;
+        }
+        .right-section li:hover {
+            background: #2e5151;
+        }
+        .right-section li.active {
+            background: #2e5151;
+            font-weight: bold;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .home-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: #223f3f;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Noto Serif TC', serif;
+        }
+        .filter-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            background: #e8e0d9;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            color: #8b4a32;
+            cursor: pointer;
+            font-family: 'Noto Serif TC', serif;
+        }
+        .filter-btn.active {
+            background: #8b4a32;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-section">
+            <button class="home-button" onclick="window.location.href='main-page.html'">返回主頁</button>
+            <div class="header">
+                <h1>V&B Log</h1>
+                <p>遊戲與影視的心得記錄</p>
+            </div>
+            <div class="content">
+                <div class="filter-bar">
+                    <button class="filter-btn active">全部</button>
+                    <button class="filter-btn">遊戲</button>
+                    <button class="filter-btn">影視</button>
+                    <button class="filter-btn">書籍</button>
+                    <button class="filter-btn">評論</button>
+                </div>
+                
+                <h2>最新日誌</h2>
+                
+                <div class="log-item">
+                    <div class="log-meta">
+                        <span>發布日期: 2025-03-18</span>
+                        <span>分類: 遊戲</span>
+                    </div>
+                    <h3>星際大戰絕地倖存者2：劇情分析與評價</h3>
+                    <p>本文深入探討《星際大戰絕地倖存者2》的故事發展、角色成長以及與星戰宇宙的連接。遊戲在前作的基礎上有哪些提升？新增的遊戲機制是否成功？</p>
+                    
+                    <div class="log-gallery">
+                        <div class="gallery-item">遊戲截圖1</div>
+                        <div class="gallery-item">遊戲截圖2</div>
+                        <div class="gallery-item">遊戲截圖3</div>
+                    </div>
+                    
+                    <div class="tag-container">
+                        <span class="tag">星際大戰</span>
+                        <span class="tag">絕地</span>
+                        <span class="tag">動作冒險</span>
+                        <span class="tag">EA</span>
+                        <span class="tag">Respawn</span>
+                    </div>
+                </div>
+                
+                <div class="log-item">
+                    <div class="log-meta">
+                        <span>發布日期: 2025-03-12</span>
+                        <span>分類: 影視</span>
+                    </div>
+                    <h3>曼達洛人第四季：回歸傳統與新的開始</h3>
+                    <p>《曼達洛人》第四季為星戰電視宇宙開啟了新的篇章，本文將分析劇集的主題與敘事結構，探討其與更廣泛星戰世界的連接，以及對未來星戰作品的影響。</p>
+                    
+                    <div class="log-gallery">
+                        <div class="gallery-item">劇照1</div>
+                        <div class="gallery-item">劇照2</div>
+                        <div class="gallery-item">劇照3</div>
+                    </div>
+                    
+                    <div class="tag-container">
+                        <span class="tag">星際大戰</span>
+                        <span class="tag">曼達洛人</span>
+                        <span class="tag">Disney+</span>
+                        <span class="tag">太空歌劇</span>
+                    </div>
+                </div>
+                
+                <div class="log-item">
+                    <div class="log-meta">
+                        <span>發布日期: 2025-03-05</span>
+                        <span>分類: 書籍</span>
+                    </div>
+                    <h3>《高共和紀元：光明與影子》書評</h3>
+                    <p>星戰宇宙的最新小說作品《高共和紀元：光明與影子》為我們展示了絕地武士團全盛時期的故事。本文將分析書中的世界觀構建、角色塑造以及與電影、遊戲的關聯。</p>
+                    
+                    <div class="log-gallery">
+                        <div class="gallery-item">書籍封面</div>
+                        <div class="gallery-item">內頁插圖</div>
+                    </div>
+                    
+                    <div class="tag-container">
+                        <span class="tag">星際大戰</span>
+                        <span class="tag">高共和紀元</span>
+                        <span class="tag">絕地</span>
+                        <span class="tag">小說</span>
+                    </div>
+                </div>
+                
+                <h2>精選評論</h2>
+                <div class="log-item">
+                    <h3>2024-2025年度星際大戰作品綜述</h3>
+                    <p>過去一年中，星戰宇宙有多部作品推出，從電視劇到遊戲再到小說，本文將綜合評價這些作品的優缺點，並探討星戰IP的發展方向。</p>
+                    
+                    <div class="tag-container">
+                        <span class="tag">星際大戰</span>
+                        <span class="tag">年度回顧</span>
+                        <span class="tag">評論</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right-section">
+            <ul>
+                <li><a href="index.html">Profile</a></li>
+                <li><a href="iot.html">IoT</a></li>
+                <li><a href="ai-training.html">AI training</a></li>
+                <li><a href="music-room.html">Music Room</a></li>
+                <li class="active"><a href="vb-log.html">V&B log</a></li>
+                <li>Coming soon...</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
