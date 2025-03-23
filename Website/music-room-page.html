@@ -171,6 +171,23 @@
         .volume-control input {
             width: 100%;
         }
+        
+        .folder-path {
+            margin: 20px 0;
+            padding: 10px;
+            background: #3a5656;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .status-message {
+            margin-top: 10px;
+            padding: 10px;
+            background: #3a5656;
+            border-radius: 5px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -180,6 +197,9 @@
     </div>
     
     <div class="music-container">
+        <div id="folderPath" class="folder-path">音樂資料夾: D:\My Works\mymusic</div>
+        <div id="statusMessage" class="status-message">正在載入音樂...</div>
+        
         <div class="player-section">
             <audio id="audio-player"></audio>
             
@@ -205,45 +225,17 @@
         </div>
         
         <div class="playlist" id="playlist">
-            <!-- 播放列表项目将通过JavaScript添加 -->
+            <!-- 播放列表項目將通過JavaScript添加 -->
         </div>
         
         <div style="text-align: center;">
-            <a href="main-page.html" class="home-button">返回主页</a>
+            <a href="main-page.html" class="home-button">返回主頁</a>
         </div>
     </div>
     
     <script>
-        // 音乐播放器功能
+        // 音樂播放器功能
         document.addEventListener('DOMContentLoaded', function() {
-            // 音乐列表
-            const songs = [
-                {
-                    title: "冥想音乐",
-                    artist: "放松音乐家",
-                    file: "https://cdn.pixabay.com/download/audio/2022/02/22/audio_d08fdfd69a.mp3",
-                    duration: "3:45"
-                },
-                {
-                    title: "夏日微风",
-                    artist: "自然之声",
-                    file: "https://cdn.pixabay.com/download/audio/2022/06/25/audio_5fad58f3f7.mp3",
-                    duration: "4:20"
-                },
-                {
-                    title: "雨天",
-                    artist: "环境音效",
-                    file: "https://cdn.pixabay.com/download/audio/2022/03/25/audio_80818dd222.mp3",
-                    duration: "5:10"
-                },
-                {
-                    title: "平静海洋",
-                    artist: "海浪声音",
-                    file: "https://cdn.pixabay.com/download/audio/2022/01/18/audio_d1519013a5.mp3",
-                    duration: "3:30"
-                }
-            ];
-            
             const audioPlayer = document.getElementById('audio-player');
             const playButton = document.getElementById('play-button');
             const prevButton = document.getElementById('prev-button');
@@ -254,70 +246,135 @@
             const durationDisplay = document.getElementById('duration');
             const volumeControl = document.getElementById('volume');
             const playlistContainer = document.getElementById('playlist');
+            const statusMessage = document.getElementById('statusMessage');
             
+            let songs = [];
             let currentSongIndex = 0;
             let isPlaying = false;
             
-            // 初始化播放器
-            function initPlayer() {
-                loadSong(currentSongIndex);
-                renderPlaylist();
+            // 從後端獲取音樂文件列表
+            fetchMusicFiles();
+            
+            // 從後端API獲取音樂文件列表
+            function fetchMusicFiles() {
+                statusMessage.innerHTML = '正在從伺服器載入音樂...';
                 
-                audioPlayer.volume = volumeControl.value;
+                fetch('/api/music')
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('無法連接到服務器');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        songs = data;
+                        statusMessage.innerHTML = `已載入 ${songs.length} 個音樂檔案`;
+                        initPlayer();
+                    })
+                    .catch(error => {
+                        console.error('獲取音樂文件時出錯:', error);
+                        statusMessage.innerHTML = `載入音樂時出錯: ${error.message}`;
+                    });
             }
             
-            // 加载歌曲
-            function loadSong(index) {
-                const song = songs[index];
-                audioPlayer.src = song.file;
-                audioPlayer.load();
+            // 初始化播放器
+            function initPlayer() {
+                renderPlaylist();
+                audioPlayer.volume = volumeControl.value;
                 
+                if (songs.length > 0) {
+                    // 選擇第一首歌曲
+                    currentSongIndex = 0;
+                    loadSong(currentSongIndex);
+                }
+            }
+            
+            // 加載歌曲
+            function loadSong(index) {
+                if (songs.length === 0) return;
+                
+                const song = songs[index];
+                // 設置音頻源 - 使用後端流媒體API
+                audioPlayer.src = `/api/stream/${encodeURIComponent(song.fileName)}`;
+                
+                statusMessage.innerHTML = `已選擇: ${song.title}`;
+                
+                // 如果之前在播放，則自動播放新選擇的歌曲
                 if (isPlaying) {
-                    audioPlayer.play();
-                    playButton.textContent = '⏸';
+                    audioPlayer.play()
+                        .then(() => {
+                            playButton.textContent = '⏸';
+                        })
+                        .catch(err => {
+                            console.error('播放失敗:', err);
+                            isPlaying = false;
+                            playButton.textContent = '▶';
+                        });
                 }
                 
                 updateActivePlaylistItem();
             }
             
-            // 播放/暂停
+            // 播放/暫停
             function togglePlay() {
+                if (songs.length === 0) return;
+                
                 if (isPlaying) {
                     audioPlayer.pause();
+                    statusMessage.innerHTML = `暫停播放: ${songs[currentSongIndex].title}`;
                     playButton.textContent = '▶';
                 } else {
-                    audioPlayer.play();
-                    playButton.textContent = '⏸';
+                    audioPlayer.play()
+                        .then(() => {
+                            statusMessage.innerHTML = `正在播放: ${songs[currentSongIndex].title}`;
+                            playButton.textContent = '⏸';
+                        })
+                        .catch(err => {
+                            console.error('播放失敗:', err);
+                            statusMessage.innerHTML = `播放失敗: ${err.message}`;
+                        });
                 }
                 isPlaying = !isPlaying;
             }
             
             // 上一首
             function playPrevious() {
+                if (songs.length === 0) return;
+                
                 currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
                 loadSong(currentSongIndex);
+                if (isPlaying) {
+                    audioPlayer.play()
+                        .catch(err => console.error('播放上一首失敗:', err));
+                }
             }
             
             // 下一首
             function playNext() {
+                if (songs.length === 0) return;
+                
                 currentSongIndex = (currentSongIndex + 1) % songs.length;
                 loadSong(currentSongIndex);
+                if (isPlaying) {
+                    audioPlayer.play()
+                        .catch(err => console.error('播放下一首失敗:', err));
+                }
             }
             
-            // 更新进度条
+            // 更新進度條
             function updateProgress() {
                 const { currentTime, duration } = audioPlayer;
                 const progressPercent = (currentTime / duration) * 100;
                 progressBar.style.width = `${progressPercent}%`;
                 
-                // 更新时间显示
+                // 更新時間顯示
                 currentTimeDisplay.textContent = formatTime(currentTime);
                 if (!isNaN(duration)) {
                     durationDisplay.textContent = formatTime(duration);
                 }
             }
             
-            // 设置播放位置
+            // 設置播放位置
             function setProgress(e) {
                 const width = this.clientWidth;
                 const clickX = e.offsetX;
@@ -325,8 +382,10 @@
                 audioPlayer.currentTime = (clickX / width) * duration;
             }
             
-            // 格式化时间
+            // 格式化時間
             function formatTime(seconds) {
+                if (isNaN(seconds)) return '0:00';
+                
                 const min = Math.floor(seconds / 60);
                 const sec = Math.floor(seconds % 60);
                 return `${min}:${sec < 10 ? '0' + sec : sec}`;
@@ -335,6 +394,11 @@
             // 渲染播放列表
             function renderPlaylist() {
                 playlistContainer.innerHTML = '';
+                
+                if (songs.length === 0) {
+                    playlistContainer.innerHTML = '<div class="playlist-item">無可用音樂檔案</div>';
+                    return;
+                }
                 
                 songs.forEach((song, index) => {
                     const playlistItem = document.createElement('div');
@@ -346,9 +410,9 @@
                     playlistItem.innerHTML = `
                         <div class="song-info">
                             <div class="song-title">${song.title}</div>
-                            <div class="song-artist">${song.artist}</div>
+                            <div class="song-artist">${song.fileName}</div>
                         </div>
-                        <div class="song-duration">${song.duration}</div>
+                        <div class="song-duration">${song.duration || '...'}</div>
                     `;
                     
                     playlistItem.addEventListener('click', () => {
@@ -363,7 +427,7 @@
                 });
             }
             
-            // 更新活动播放列表项
+            // 更新活動播放列表項
             function updateActivePlaylistItem() {
                 const playlistItems = document.querySelectorAll('.playlist-item');
                 playlistItems.forEach((item, index) => {
@@ -375,7 +439,12 @@
                 });
             }
             
-            // 事件监听
+            // 更新音頻元數據加載時的持續時間
+            audioPlayer.addEventListener('loadedmetadata', function() {
+                durationDisplay.textContent = formatTime(audioPlayer.duration);
+            });
+            
+            // 事件監聽
             playButton.addEventListener('click', togglePlay);
             prevButton.addEventListener('click', playPrevious);
             nextButton.addEventListener('click', playNext);
@@ -385,11 +454,8 @@
                 audioPlayer.volume = volumeControl.value;
             });
             
-            // 歌曲结束时播放下一首
+            // 歌曲結束時播放下一首
             audioPlayer.addEventListener('ended', playNext);
-            
-            // 初始化播放器
-            initPlayer();
         });
     </script>
 </body>
