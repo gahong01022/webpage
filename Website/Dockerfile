@@ -9,6 +9,7 @@ COPY package*.json ./
 
 # 安装依赖
 RUN npm install
+npm install formidable
 
 # 复制项目文件
 COPY . .

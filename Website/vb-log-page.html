@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GAHOME - V&B Log</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.7/quill.snow.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;900&display=swap');
         
@@ -47,6 +48,7 @@
         .content {
             padding: 0 40px;
             color: #333;
+            margin-bottom: 50px;
         }
         .content h2 {
             color: #223f3f;
@@ -88,6 +90,12 @@
             align-items: center;
             justify-content: center;
             color: #666;
+            position: relative;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         .tag-container {
             display: flex;
@@ -101,6 +109,10 @@
             padding: 4px 10px;
             border-radius: 20px;
             font-size: 12px;
+            cursor: pointer;
+        }
+        .tag:hover {
+            background: #d6c8bc;
         }
         .right-section {
             flex: 1;
@@ -165,6 +177,172 @@
             background: #8b4a32;
             color: white;
         }
+        
+        /* New post form styles */
+        .create-post-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #8b4a32;
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 100;
+        }
+        .post-form-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .post-form {
+            background: white;
+            width: 80%;
+            max-width: 800px;
+            max-height: 90vh;
+            border-radius: 10px;
+            padding: 30px;
+            overflow-y: auto;
+        }
+        .form-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .form-header h2 {
+            color: #223f3f;
+            margin: 0;
+        }
+        .close-form {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #8b4a32;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #223f3f;
+            font-weight: bold;
+        }
+        .form-group input[type="text"], 
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Noto Serif TC', serif;
+        }
+        .editor-container {
+            height: 200px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .upload-container {
+            margin-bottom: 20px;
+        }
+        .image-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .preview-item {
+            width: 100px;
+            height: 100px;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+        .preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .remove-image {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(255,255,255,0.7);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .tag-input-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            min-height: 45px;
+        }
+        .tag-input {
+            border: none;
+            outline: none;
+            flex-grow: 1;
+            min-width: 100px;
+            font-family: 'Noto Serif TC', serif;
+        }
+        .tag-pill {
+            background: #e8e0d9;
+            color: #8b4a32;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+        .remove-tag {
+            margin-left: 5px;
+            cursor: pointer;
+        }
+        .submit-btn {
+            background: #223f3f;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-family: 'Noto Serif TC', serif;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .submit-btn:hover {
+            background: #2e5151;
+        }
+        .category-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23223F3F%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 12px;
+            padding-right: 30px;
+        }
     </style>
 </head>
 <body>
@@ -177,16 +355,16 @@
             </div>
             <div class="content">
                 <div class="filter-bar">
-                    <button class="filter-btn active">全部</button>
-                    <button class="filter-btn">遊戲</button>
-                    <button class="filter-btn">影視</button>
-                    <button class="filter-btn">書籍</button>
-                    <button class="filter-btn">評論</button>
+                    <button class="filter-btn active" data-category="all">全部</button>
+                    <button class="filter-btn" data-category="遊戲">遊戲</button>
+                    <button class="filter-btn" data-category="影視">影視</button>
+                    <button class="filter-btn" data-category="書籍">書籍</button>
+                    <button class="filter-btn" data-category="評論">評論</button>
                 </div>
                 
                 <h2>最新日誌</h2>
                 
-                <div class="log-item">
+                <div class="log-item" data-categories="遊戲,星際大戰,絕地,動作冒險,EA,Respawn">
                     <div class="log-meta">
                         <span>發布日期: 2025-03-18</span>
                         <span>分類: 遊戲</span>
@@ -201,15 +379,15 @@
                     </div>
                     
                     <div class="tag-container">
-                        <span class="tag">星際大戰</span>
-                        <span class="tag">絕地</span>
-                        <span class="tag">動作冒險</span>
-                        <span class="tag">EA</span>
-                        <span class="tag">Respawn</span>
+                        <span class="tag" data-tag="星際大戰">星際大戰</span>
+                        <span class="tag" data-tag="絕地">絕地</span>
+                        <span class="tag" data-tag="動作冒險">動作冒險</span>
+                        <span class="tag" data-tag="EA">EA</span>
+                        <span class="tag" data-tag="Respawn">Respawn</span>
                     </div>
                 </div>
                 
-                <div class="log-item">
+                <div class="log-item" data-categories="影視,星際大戰,曼達洛人,Disney+,太空歌劇">
                     <div class="log-meta">
                         <span>發布日期: 2025-03-12</span>
                         <span>分類: 影視</span>
@@ -224,14 +402,14 @@
                     </div>
                     
                     <div class="tag-container">
-                        <span class="tag">星際大戰</span>
-                        <span class="tag">曼達洛人</span>
-                        <span class="tag">Disney+</span>
-                        <span class="tag">太空歌劇</span>
+                        <span class="tag" data-tag="星際大戰">星際大戰</span>
+                        <span class="tag" data-tag="曼達洛人">曼達洛人</span>
+                        <span class="tag" data-tag="Disney+">Disney+</span>
+                        <span class="tag" data-tag="太空歌劇">太空歌劇</span>
                     </div>
                 </div>
                 
-                <div class="log-item">
+                <div class="log-item" data-categories="書籍,星際大戰,高共和紀元,絕地,小說">
                     <div class="log-meta">
                         <span>發布日期: 2025-03-05</span>
                         <span>分類: 書籍</span>
@@ -245,25 +423,28 @@
                     </div>
                     
                     <div class="tag-container">
-                        <span class="tag">星際大戰</span>
-                        <span class="tag">高共和紀元</span>
-                        <span class="tag">絕地</span>
-                        <span class="tag">小說</span>
+                        <span class="tag" data-tag="星際大戰">星際大戰</span>
+                        <span class="tag" data-tag="高共和紀元">高共和紀元</span>
+                        <span class="tag" data-tag="絕地">絕地</span>
+                        <span class="tag" data-tag="小說">小說</span>
                     </div>
                 </div>
                 
                 <h2>精選評論</h2>
-                <div class="log-item">
+                <div class="log-item" data-categories="評論,星際大戰,年度回顧">
                     <h3>2024-2025年度星際大戰作品綜述</h3>
                     <p>過去一年中，星戰宇宙有多部作品推出，從電視劇到遊戲再到小說，本文將綜合評價這些作品的優缺點，並探討星戰IP的發展方向。</p>
                     
                     <div class="tag-container">
-                        <span class="tag">星際大戰</span>
-                        <span class="tag">年度回顧</span>
-                        <span class="tag">評論</span>
+                        <span class="tag" data-tag="星際大戰">星際大戰</span>
+                        <span class="tag" data-tag="年度回顧">年度回顧</span>
+                        <span class="tag" data-tag="評論">評論</span>
                     </div>
                 </div>
             </div>
+            
+            <!-- Create Post Button -->
+            <button class="create-post-button" id="createPostBtn">+</button>
         </div>
         <div class="right-section">
             <ul>
@@ -276,5 +457,508 @@
             </ul>
         </div>
     </div>
+    
+    <!-- Post Creation Form -->
+    <div class="post-form-container" id="postFormContainer">
+        <div class="post-form">
+            <div class="form-header">
+                <h2>新增貼文</h2>
+                <button class="close-form" id="closeForm">&times;</button>
+            </div>
+            <form id="newPostForm">
+                <div class="form-group">
+                    <label for="postTitle">標題</label>
+                    <input type="text" id="postTitle" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="postCategory">分類</label>
+                    <select id="postCategory" name="category" class="category-select" required>
+                        <option value="">選擇分類</option>
+                        <option value="遊戲">遊戲</option>
+                        <option value="影視">影視</option>
+                        <option value="書籍">書籍</option>
+                        <option value="評論">評論</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editor">內容</label>
+                    <div id="editor" class="editor-container"></div>
+                </div>
+                <div class="form-group upload-container">
+                    <label for="imageUpload">上傳圖片</label>
+                    <input type="file" id="imageUpload" name="images" multiple accept="image/*">
+                    <div class="image-preview" id="imagePreview"></div>
+                </div>
+                <div class="form-group">
+                    <label for="tagInput">標籤</label>
+                    <div class="tag-input-container" id="tagContainer">
+                        <input type="text" id="tagInput" class="tag-input" placeholder="輸入標籤後按 Enter">
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">發布貼文</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.7/quill.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize the rich text editor
+            const quill = new Quill('#editor', {
+                theme: 'snow',
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', 'underline', 'strike'],
+                        [{ 'color': [] }, { 'background': [] }],
+                        [{ 'align': [] }],
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                        ['blockquote', 'code-block'],
+                        ['link', 'image']
+                    ]
+                },
+                placeholder: '寫下你的心得...'
+            });
+            
+            // Post form show/hide
+            const createPostBtn = document.getElementById('createPostBtn');
+            const postFormContainer = document.getElementById('postFormContainer');
+            const closeForm = document.getElementById('closeForm');
+            
+            createPostBtn.addEventListener('click', function() {
+                postFormContainer.style.display = 'flex';
+            });
+            
+            closeForm.addEventListener('click', function() {
+                postFormContainer.style.display = 'none';
+            });
+            
+            // Close form when clicking outside
+            postFormContainer.addEventListener('click', function(e) {
+                if (e.target === postFormContainer) {
+                    postFormContainer.style.display = 'none';
+                }
+            });
+            
+            // Image upload and preview
+            const imageUpload = document.getElementById('imageUpload');
+            const imagePreview = document.getElementById('imagePreview');
+            const uploadedFiles = new Set();
+            
+            imageUpload.addEventListener('change', function() {
+                for (const file of this.files) {
+                    if (!uploadedFiles.has(file.name)) {
+                        uploadedFiles.add(file.name);
+                        const reader = new FileReader();
+                        
+                        reader.onload = function(e) {
+                            const previewItem = document.createElement('div');
+                            previewItem.className = 'preview-item';
+                            
+                            const img = document.createElement('img');
+                            img.src = e.target.result;
+                            
+                            const removeBtn = document.createElement('div');
+                            removeBtn.className = 'remove-image';
+                            removeBtn.innerHTML = '&times;';
+                            removeBtn.dataset.filename = file.name;
+                            
+                            removeBtn.addEventListener('click', function() {
+                                uploadedFiles.delete(this.dataset.filename);
+                                previewItem.remove();
+                            });
+                            
+                            previewItem.appendChild(img);
+                            previewItem.appendChild(removeBtn);
+                            imagePreview.appendChild(previewItem);
+                        };
+                        
+                        reader.readAsDataURL(file);
+                    }
+                }
+            });
+            
+            // Tags input
+            const tagInput = document.getElementById('tagInput');
+            const tagContainer = document.getElementById('tagContainer');
+            const tags = new Set();
+            
+            function addTag(tag) {
+                if (tag && !tags.has(tag)) {
+                    tags.add(tag);
+                    
+                    const tagPill = document.createElement('div');
+                    tagPill.className = 'tag-pill';
+                    tagPill.innerHTML = tag;
+                    
+                    const removeBtn = document.createElement('span');
+                    removeBtn.className = 'remove-tag';
+                    removeBtn.innerHTML = '&times;';
+                    removeBtn.dataset.tag = tag;
+                    
+                    removeBtn.addEventListener('click', function() {
+                        tags.delete(this.dataset.tag);
+                        tagPill.remove();
+                    });
+                    
+                    tagPill.appendChild(removeBtn);
+                    tagContainer.insertBefore(tagPill, tagInput);
+                }
+                tagInput.value = '';
+            }
+            
+            tagInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ',') {
+                    e.preventDefault();
+                    addTag(this.value.trim());
+                }
+            });
+            
+            tagInput.addEventListener('blur', function() {
+                if (this.value.trim()) {
+                    addTag(this.value.trim());
+                }
+            });
+            
+            // Form submission
+            const newPostForm = document.getElementById('newPostForm');
+            
+            newPostForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form values
+                const title = document.getElementById('postTitle').value;
+                const category = document.getElementById('postCategory').value;
+                const content = quill.root.innerHTML;
+                const today = new Date();
+                const date = today.toISOString().split('T')[0];
+                
+                // Create new post
+                const newPost = document.createElement('div');
+                newPost.className = 'log-item';
+                newPost.dataset.categories = Array.from(tags).join(',') + ',' + category;
+                
+                // Create post content
+                const metaDiv = document.createElement('div');
+                metaDiv.className = 'log-meta';
+                metaDiv.innerHTML = `<span>發布日期: ${date}</span><span>分類: ${category}</span>`;
+                
+                const postTitle = document.createElement('h3');
+                postTitle.textContent = title;
+                
+                const postContent = document.createElement('div');
+                postContent.innerHTML = content;
+                
+                // Add gallery if images uploaded
+                let galleryDiv = '';
+                if (uploadedFiles.size > 0) {
+                    galleryDiv = document.createElement('div');
+                    galleryDiv.className = 'log-gallery';
+                    
+                    for (const img of imagePreview.children) {
+                        const galleryItem = document.createElement('div');
+                        galleryItem.className = 'gallery-item';
+                        galleryItem.appendChild(img.querySelector('img').cloneNode());
+                        galleryDiv.appendChild(galleryItem);
+                    }
+                }
+                
+                // Add tags
+                const tagDiv = document.createElement('div');
+                tagDiv.className = 'tag-container';
+                
+                for (const tag of tags) {
+                    const tagSpan = document.createElement('span');
+                    tagSpan.className = 'tag';
+                    tagSpan.dataset.tag = tag;
+                    tagSpan.textContent = tag;
+                    tagSpan.addEventListener('click', function() {
+                        filterByTag(tag);
+                    });
+                    tagDiv.appendChild(tagSpan);
+                }
+                
+                // Assemble the post
+                newPost.appendChild(metaDiv);
+                newPost.appendChild(postTitle);
+                newPost.appendChild(postContent);
+                if (galleryDiv) {
+                    newPost.appendChild(galleryDiv);
+                }
+                newPost.appendChild(tagDiv);
+                
+                // Add to page
+                const content_section = document.querySelector('.content');
+                const latestLogHeading = content_section.querySelector('h2:first-of-type');
+                content_section.insertBefore(newPost, latestLogHeading.nextElementSibling);
+                
+                // Reset form
+                newPostForm.reset();
+                quill.root.innerHTML = '';
+                imagePreview.innerHTML = '';
+                uploadedFiles.clear();
+                
+                while (tagContainer.firstChild) {
+                    if (tagContainer.firstChild === tagInput) {
+                        break;
+                    }
+                    tagContainer.removeChild(tagContainer.firstChild);
+                }
+                tags.clear();
+                
+                // Close form
+                postFormContainer.style.display = 'none';
+                
+                // Alert success
+                alert('貼文已成功發布！');
+            });
+            
+            // Category filtering
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const logItems = document.querySelectorAll('.log-item');
+            
+            function filterPosts(category) {
+                logItems.forEach(item => {
+                    const categories = item.dataset.categories ? item.dataset.categories.split(',') : [];
+                    
+                    if (category === 'all' || categories.includes(category)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            }
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Update active button
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Filter posts
+                    filterPosts(this.dataset.category);
+                });
+            });
+            
+            // Tag filtering
+            const tagButtons = document.querySelectorAll('.tag');
+            
+            function filterByTag(tag) {
+                // Reset category filters
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                document.querySelector('[data-category="all"]').classList.add('active');
+                
+                // Filter by tag
+                logItems.forEach(item => {
+                    const categories = item.dataset.categories ? item.dataset.categories.split(',') : [];
+                    
+                    if (categories.includes(tag)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            }
+            
+            tagButtons.forEach(tag => {
+                tag.addEventListener('click', function() {
+                    filterByTag(this.dataset.tag);
+                });
+                tag.addEventListener('click', function() {
+                    filterByTag(this.dataset.tag);
+                });
+            });
+        });
+
+        // 將這段代碼放在 document.addEventListener('DOMContentLoaded', function() { 內部
+
+// 頁面加載時獲取所有文章
+function loadAllPosts() {
+    fetch('/api/blog/posts')
+        .then(response => response.json())
+        .then(posts => {
+            const contentSection = document.querySelector('.content');
+            
+            // 清除現有的文章 (保留標題和篩選按鈕)
+            const allH2Elements = contentSection.querySelectorAll('h2');
+            const latestLogHeading = allH2Elements[0];
+            const reviewHeading = allH2Elements[1];
+            
+            // 先清除所有文章項目
+            document.querySelectorAll('.log-item').forEach(item => item.remove());
+            
+            // 按分類對文章進行分組
+            const latestPosts = posts.filter(post => post.category !== '評論');
+            const reviewPosts = posts.filter(post => post.category === '評論');
+            
+            // 插入最新日誌
+            latestPosts.forEach(post => {
+                const postElement = createPostElement(post);
+                contentSection.insertBefore(postElement, reviewHeading);
+            });
+            
+            // 插入評論文章
+            reviewPosts.forEach(post => {
+                const postElement = createPostElement(post);
+                contentSection.appendChild(postElement);
+            });
+        })
+        .catch(error => console.error('Error loading posts:', error));
+}
+
+// 創建文章元素
+function createPostElement(post) {
+    const newPost = document.createElement('div');
+    newPost.className = 'log-item';
+    newPost.dataset.categories = post.tags.join(',') + ',' + post.category;
+    
+    // 創建文章元信息
+    const metaDiv = document.createElement('div');
+    metaDiv.className = 'log-meta';
+    metaDiv.innerHTML = `
+        <span>發布日期: ${post.date}</span>
+        <span>分類: ${post.category}</span>
+    `;
+    
+    // 創建標題
+    const postTitle = document.createElement('h3');
+    postTitle.textContent = post.title;
+    
+    // 創建內容
+    const postContent = document.createElement('div');
+    postContent.innerHTML = post.content;
+    
+    // 添加圖庫
+    let galleryDiv = null;
+    if (post.images && post.images.length > 0) {
+        galleryDiv = document.createElement('div');
+        galleryDiv.className = 'log-gallery';
+        
+        post.images.forEach(image => {
+            const galleryItem = document.createElement('div');
+            galleryItem.className = 'gallery-item';
+            
+            // 如果你有實際的圖片 URL
+            if (typeof image === 'string') {
+                const img = document.createElement('img');
+                img.src = image;
+                galleryItem.appendChild(img);
+            } else {
+                galleryItem.textContent = '圖片';
+            }
+            
+            galleryDiv.appendChild(galleryItem);
+        });
+    }
+    
+    // 添加標籤
+    const tagDiv = document.createElement('div');
+    tagDiv.className = 'tag-container';
+    
+    post.tags.forEach(tag => {
+        const tagSpan = document.createElement('span');
+        tagSpan.className = 'tag';
+        tagSpan.dataset.tag = tag;
+        tagSpan.textContent = tag;
+        
+        tagSpan.addEventListener('click', function() {
+            filterByTag(tag);
+        });
+        
+        tagDiv.appendChild(tagSpan);
+    });
+    
+    // 組裝文章
+    newPost.appendChild(metaDiv);
+    newPost.appendChild(postTitle);
+    newPost.appendChild(postContent);
+    if (galleryDiv) {
+        newPost.appendChild(galleryDiv);
+    }
+    newPost.appendChild(tagDiv);
+    
+    return newPost;
+}
+
+// 表單提交處理函數 (更新為發送到API)
+newPostForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // 獲取表單數據
+    const title = document.getElementById('postTitle').value;
+    const category = document.getElementById('postCategory').value;
+    const content = quill.root.innerHTML;
+    
+    // 收集標籤
+    const tagArray = Array.from(tags);
+    
+    // 準備要發送的數據
+    const postData = {
+        title: title,
+        category: category,
+        content: content,
+        tags: tagArray,
+        images: [] // 這裡應添加實際上傳的圖片路徑
+    };
+    
+    // 發送到後端API
+    fetch('/api/blog/posts', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(postData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // 添加新文章到頁面
+            postData.date = new Date().toISOString().split('T')[0];
+            const newPost = createPostElement(postData);
+            
+            // 決定放在哪個部分
+            const content_section = document.querySelector('.content');
+            const allH2Elements = content_section.querySelectorAll('h2');
+            
+            if (category === '評論') {
+                // 添加到評論部分
+                content_section.appendChild(newPost);
+            } else {
+                // 添加到最新日誌部分
+                content_section.insertBefore(newPost, allH2Elements[1]);
+            }
+            
+            // 重置表單
+            newPostForm.reset();
+            quill.root.innerHTML = '';
+            imagePreview.innerHTML = '';
+            uploadedFiles.clear();
+            
+            while (tagContainer.firstChild) {
+                if (tagContainer.firstChild === tagInput) {
+                    break;
+                }
+                tagContainer.removeChild(tagContainer.firstChild);
+            }
+            tags.clear();
+            
+            // 關閉表單
+            postFormContainer.style.display = 'none';
+            
+            // 提示成功
+            alert('貼文已成功發布！');
+        } else {
+            alert('貼文發布失敗，請稍後再試！');
+        }
+    })
+    .catch(error => {
+        console.error('Error submitting post:', error);
+        alert('貼文發布出錯，請稍後再試！');
+    });
+});
+
+// 頁面加載時獲取所有文章
+loadAllPosts();
+    </script>
 </body>
 </html>
